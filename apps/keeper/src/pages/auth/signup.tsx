@@ -1,5 +1,5 @@
 import { useAuth } from "$lib/context/auth";
-import { login, LoginInput } from "$lib/services/auth";
+import { login, signup, SignupInput } from "$lib/services/auth";
 import {
   TextInput,
   PasswordInput,
@@ -12,26 +12,31 @@ import {
   Group,
   Button,
 } from "@mantine/core";
-import { useForm } from "@mantine/hooks";
+import { useForm as useMForm } from "@mantine/hooks";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import { useCallback } from "react";
 import { useMutation } from "react-query";
 
-const LoginPage = () => {
-  const { getInputProps, onSubmit, reset } = useForm({
+const SignupPage = () => {
+  const router = useRouter();
+
+  const { getInputProps, errors, reset, onSubmit, resetErrors } = useMForm({
     initialValues: {
+      username: "",
       email: "",
       password: "",
-      rememberMe: false,
+      termsAndCondition: false,
     },
   });
   const { setAuth } = useAuth();
-  const { mutateAsync, error } = useMutation("login", login, {
+  const { mutateAsync, error } = useMutation("signup", signup, {
     onSuccess: setAuth,
   });
 
-  const loginHandler = useCallback<(props: LoginInput) => void>(
-    ({ email, password }) => mutateAsync({ email, password }).then(reset),
+  const loginHandler = useCallback<(props: SignupInput) => void>(
+    ({ email, password, username }) =>
+      mutateAsync({ email, password, username }).then(reset),
     [mutateAsync, reset]
   );
 
@@ -48,26 +53,34 @@ const LoginPage = () => {
           fontWeight: 900,
         })}
       >
-        Welcome back!
+        Hi there!
       </Title>
       <Text color="dimmed" size="sm" align="center" mt={5}>
-        Do not have an account yet?{" "}
-        <Link href="/auth/signup" passHref>
+        Already have an account?{" "}
+        <Link href="/auth/login" passHref>
           <Anchor<"a">
             size="sm"
             // onClick={(event) => event.preventDefault()}
           >
-            Create account
+            Login
           </Anchor>
         </Link>
       </Text>
 
       <Paper withBorder shadow="md" p={30} mt={30} radius="md">
         <TextInput
-          label="Email"
-          placeholder="you@mantine.dev"
+          label="Name"
+          placeholder="John Doe"
           required
           data-autoFocus
+          {...getInputProps("username")}
+        />
+        <TextInput
+          label="Email"
+          type="email"
+          placeholder="you@mantine.dev"
+          required
+          mt="md"
           {...getInputProps("email")}
         />
         <PasswordInput
@@ -79,23 +92,16 @@ const LoginPage = () => {
         />
         <Group position="apart" mt="md">
           <Checkbox
-            label="Remember me"
-            {...getInputProps("rememberMe", { type: "checkbox" })}
+            label="I accept the terms & conditions."
+            {...getInputProps("termsAndCondition", { type: "checkbox" })}
           />
-          <Anchor<"a">
-            onClick={(event) => event.preventDefault()}
-            href="#"
-            size="sm"
-          >
-            Forgot password?
-          </Anchor>
         </Group>
         <Button fullWidth mt="xl" onClick={onSubmit(loginHandler)}>
-          Sign in
+          Sign up
         </Button>
       </Paper>
     </Container>
   );
 };
 
-export default LoginPage;
+export default SignupPage;
