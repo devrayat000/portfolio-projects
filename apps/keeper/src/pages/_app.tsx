@@ -15,50 +15,31 @@ import { useState } from "react";
 
 import { createQueryClient } from "$lib/modules/react-query";
 import { AuthProvider } from "$lib/context/auth";
+import { NextPage } from "next";
+import { getTheme, setTheme } from "styles/theme";
 
-function MyApp({ Component, pageProps }: AppProps) {
+interface MyAppProps extends AppProps {
+  theme?: ColorScheme | null;
+}
+
+const MyApp: NextPage<MyAppProps> = ({ Component, pageProps }) => {
   const [client] = useState(createQueryClient);
   return (
-    <ThemeProvider>
+    <MantineProvider
+      withGlobalStyles
+      withNormalizeCSS
+      theme={{
+        /** Put your mantine theme override here */
+        colorScheme: "light",
+      }}
+    >
       <QueryClientProvider client={client}>
         <AuthProvider>
           <Component {...pageProps} />
         </AuthProvider>
       </QueryClientProvider>
-    </ThemeProvider>
-  );
-}
-
-export default MyApp;
-
-const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({
-  children,
-}) => {
-  const preferredColorScheme = useColorScheme();
-  const [scheme, setScheme] = useLocalStorageValue<ColorScheme>({
-    key: "keeper.theme",
-    defaultValue: preferredColorScheme,
-  });
-  const toggleColorScheme = (value?: ColorScheme) =>
-    setScheme(value || (scheme === "dark" ? "light" : "dark"));
-
-  useHotkeys([["mod+J", () => toggleColorScheme()]]);
-
-  return (
-    <ColorSchemeProvider
-      colorScheme={scheme}
-      toggleColorScheme={toggleColorScheme}
-    >
-      <MantineProvider
-        withGlobalStyles
-        withNormalizeCSS
-        theme={{
-          /** Put your mantine theme override here */
-          colorScheme: scheme,
-        }}
-      >
-        {children}
-      </MantineProvider>
-    </ColorSchemeProvider>
+    </MantineProvider>
   );
 };
+
+export default MyApp;

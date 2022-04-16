@@ -1,3 +1,4 @@
+import * as yup from "yup";
 import { api } from "$lib/modules/axios";
 
 export interface AuthData {
@@ -45,3 +46,17 @@ export function user(jwt: string) {
     })
     .then((res) => res.data);
 }
+
+export const loginSchema = yup.object().shape({
+  email: yup.string().required().email(),
+  password: yup.string().required().min(8).max(32),
+});
+
+export const signupSchema = loginSchema.shape({
+  username: yup.string().required().min(6),
+  confirmPassword: yup
+    .string()
+    .required()
+    .equals([yup.ref("password")]),
+  termsAndCondition: yup.boolean().isTrue(),
+});

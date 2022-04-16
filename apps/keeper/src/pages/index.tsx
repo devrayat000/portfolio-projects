@@ -11,10 +11,15 @@ import {
   useMantineTheme,
   Group,
   createStyles,
+  ColorSchemeProvider,
+  MantineProvider,
+  ColorScheme,
 } from "@mantine/core";
-import { useBooleanToggle, useToggle } from "@mantine/hooks";
-import type { NextPage } from "next";
+import { useBooleanToggle, useHotkeys, useToggle } from "@mantine/hooks";
+import type { GetServerSideProps, NextPage } from "next";
 import Head from "next/head";
+import { useState } from "react";
+import { getTheme, setTheme } from "styles/theme";
 import { Notes, Pencil } from "tabler-icons-react";
 import styles from "../styles/Home.module.css";
 
@@ -45,7 +50,7 @@ const useStyles = createStyles((theme) => ({
   },
 }));
 
-const Home: NextPage = () => {
+const HomePage: NextPage<HomePageProps> = () => {
   // const { send, socket } = useSocket({ event: "hello" });
   const {} = useSocket({
     event: "todo_created",
@@ -166,4 +171,48 @@ const Home: NextPage = () => {
   );
 };
 
-export default Home;
+const ThemeProvider: React.FC<ThemedProps> = ({ theme, ...props }) => {
+  const [scheme, setScheme] = useState<ColorScheme>(theme ?? "light");
+  const toggleColorScheme = (value?: ColorScheme) => {
+    const newScheme = value ?? (scheme === "dark" ? "light" : "dark");
+    setScheme(newScheme);
+    setTheme(newScheme);
+  };
+
+  useHotkeys([["mod+J", () => toggleColorScheme()]]);
+
+  return (
+    <ColorSchemeProvider
+      colorScheme={scheme}
+      toggleColorScheme={toggleColorScheme}
+    >
+      <MantineProvider
+        withGlobalStyles
+        withNormalizeCSS
+        theme={{
+          /** Put your mantine theme override here */
+          colorScheme: scheme,
+        }}
+      >
+        <HomePage {...props} />
+      </MantineProvider>
+    </ColorSchemeProvider>
+  );
+};
+
+interface HomePageProps {}
+
+interface ThemedProps extends HomePageProps {
+  theme?: ColorScheme | null;
+}
+
+export default ThemeProvider;
+
+export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
+  const theme = getTheme({ req, res });
+  console.log(theme);
+
+  return {
+    props: { theme },
+  };
+};

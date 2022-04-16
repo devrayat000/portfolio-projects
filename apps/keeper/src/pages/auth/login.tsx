@@ -1,5 +1,5 @@
 import { useAuth } from "$lib/context/auth";
-import { login, LoginInput } from "$lib/services/auth";
+import { login, LoginInput, loginSchema } from "$lib/services/auth";
 import {
   TextInput,
   PasswordInput,
@@ -12,30 +12,40 @@ import {
   Group,
   Button,
 } from "@mantine/core";
-import { useForm } from "@mantine/hooks";
+import { useFocusTrap } from "@mantine/hooks";
+import { useForm, yupResolver } from "@mantine/form";
 import Link from "next/link";
 import { useCallback } from "react";
 import { useMutation } from "react-query";
 
 const LoginPage = () => {
-  const { getInputProps, onSubmit, reset } = useForm({
+  const { getInputProps, onSubmit, reset, errors } = useForm({
     initialValues: {
       email: "",
       password: "",
       rememberMe: false,
     },
+    schema: yupResolver(loginSchema),
   });
   const { setAuth } = useAuth();
-  const { mutateAsync, error } = useMutation("login", login, {
-    onSuccess: setAuth,
-  });
+  const { mutateAsync, error, isLoading, isError } = useMutation(
+    "login",
+    login,
+    {
+      onSuccess: setAuth,
+      onError(error, variables, context) {
+        console.error(error);
+      },
+    }
+  );
+  const focusTrapRef = useFocusTrap();
 
   const loginHandler = useCallback<(props: LoginInput) => void>(
     ({ email, password }) => mutateAsync({ email, password }).then(reset),
     [mutateAsync, reset]
   );
 
-  if (error) {
+  if (isError) {
     return <h2>{(error as Error).message}</h2>;
   }
 
@@ -62,20 +72,28 @@ const LoginPage = () => {
         </Link>
       </Text>
 
-      <Paper withBorder shadow="md" p={30} mt={30} radius="md">
+      <Paper<"form">
+        component="form"
+        withBorder
+        shadow="md"
+        p={30}
+        mt={30}
+        radius="md"
+        ref={focusTrapRef}
+      >
         <TextInput
           label="Email"
           placeholder="you@mantine.dev"
           required
-          data-autoFocus
-          {...getInputProps("email")}
+          data-autofocus
+          {...getInputProps("email", { withError: true })}
         />
         <PasswordInput
           label="Password"
           placeholder="Your password"
           required
           mt="md"
-          {...getInputProps("password")}
+          {...getInputProps("password", { withError: true })}
         />
         <Group position="apart" mt="md">
           <Checkbox
@@ -90,7 +108,12 @@ const LoginPage = () => {
             Forgot password?
           </Anchor>
         </Group>
-        <Button fullWidth mt="xl" onClick={onSubmit(loginHandler)}>
+        <Button
+          loading={isLoading}
+          fullWidth
+          mt="xl"
+          onClick={onSubmit(loginHandler)}
+        >
           Sign in
         </Button>
       </Paper>

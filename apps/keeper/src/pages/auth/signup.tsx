@@ -1,5 +1,5 @@
 import { useAuth } from "$lib/context/auth";
-import { login, signup, SignupInput } from "$lib/services/auth";
+import { login, signup, SignupInput, signupSchema } from "$lib/services/auth";
 import {
   TextInput,
   PasswordInput,
@@ -12,27 +12,29 @@ import {
   Group,
   Button,
 } from "@mantine/core";
-import { useForm as useMForm } from "@mantine/hooks";
+import { useFocusTrap } from "@mantine/hooks";
+import { useForm, yupResolver } from "@mantine/form";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useCallback } from "react";
 import { useMutation } from "react-query";
 
 const SignupPage = () => {
-  const router = useRouter();
-
-  const { getInputProps, errors, reset, onSubmit, resetErrors } = useMForm({
+  const { getInputProps, errors, reset, onSubmit, clearErrors } = useForm({
     initialValues: {
       username: "",
       email: "",
       password: "",
+      confirmPassword: "",
       termsAndCondition: false,
     },
+    schema: yupResolver(signupSchema),
   });
   const { setAuth } = useAuth();
   const { mutateAsync, error } = useMutation("signup", signup, {
     onSuccess: setAuth,
   });
+  const focusTrapRef = useFocusTrap();
 
   const loginHandler = useCallback<(props: SignupInput) => void>(
     ({ email, password, username }) =>
@@ -67,13 +69,21 @@ const SignupPage = () => {
         </Link>
       </Text>
 
-      <Paper withBorder shadow="md" p={30} mt={30} radius="md">
+      <Paper<"form">
+        component="form"
+        withBorder
+        shadow="md"
+        p={30}
+        mt={30}
+        radius="md"
+        ref={focusTrapRef}
+      >
         <TextInput
           label="Name"
           placeholder="John Doe"
           required
-          data-autoFocus
-          {...getInputProps("username")}
+          data-autofocus
+          {...getInputProps("username", { withError: true })}
         />
         <TextInput
           label="Email"
@@ -81,19 +91,29 @@ const SignupPage = () => {
           placeholder="you@mantine.dev"
           required
           mt="md"
-          {...getInputProps("email")}
+          {...getInputProps("email", { withError: true })}
         />
         <PasswordInput
           label="Password"
           placeholder="Your password"
           required
           mt="md"
-          {...getInputProps("password")}
+          {...getInputProps("password", { withError: true })}
+        />
+        <PasswordInput
+          label="Confirm Password"
+          placeholder="Your password"
+          required
+          mt="md"
+          {...getInputProps("confirmPassword", { withError: true })}
         />
         <Group position="apart" mt="md">
           <Checkbox
             label="I accept the terms & conditions."
-            {...getInputProps("termsAndCondition", { type: "checkbox" })}
+            {...getInputProps("termsAndCondition", {
+              type: "checkbox",
+              withError: true,
+            })}
           />
         </Group>
         <Button fullWidth mt="xl" onClick={onSubmit(loginHandler)}>

@@ -46,19 +46,21 @@ importers:
       '@types/node': ^17.0.12
       '@types/react': 18.0.1
       '@types/react-dom': ^17.0.11
+      '@vespaiach/axios-fetch-adapter': ^0.2.2
       axios: ^0.26.1
       config: workspace:*
+      cookies-next: ^2.0.4
       easy-peasy: ^5.0.4
       eslint: 7.32.0
       eslint-config-next: ^12.0.8
       mantine: workspace:*
       next: 12.0.8
       next-transpile-modules: 9.0.0
-      nookies: ^2.5.2
       react: 17.0.2
       react-dom: 17.0.2
       react-hook-form: ^7.29.0
       react-query: ^3.34.19
+      schema: ^0.2.1
       socket.io-client: ^4.4.1
       tabler-icons-react: ^1.45.0
       typescript: ^4.5.3
@@ -68,15 +70,17 @@ importers:
       '@mantine/form': 4.1.3_react@17.0.2
       '@mantine/hooks': 4.1.3_react@17.0.2
       '@mantine/next': 4.1.3_641713ec0a6b4c4d4e53811f78cdc0b4
+      '@vespaiach/axios-fetch-adapter': 0.2.2_axios@0.26.1
       axios: 0.26.1
+      cookies-next: 2.0.4
       easy-peasy: 5.0.4_react@17.0.2
       mantine: link:../../packages/mantine
       next: 12.0.8_react-dom@17.0.2+react@17.0.2
-      nookies: 2.5.2
       react: 17.0.2
       react-dom: 17.0.2_react@17.0.2
       react-hook-form: 7.29.0_react@17.0.2
       react-query: 3.34.19_react-dom@17.0.2+react@17.0.2
+      schema: 0.2.1
       socket.io-client: 4.4.1
       tabler-icons-react: 1.45.0_react@17.0.2
       yup: 0.32.11
@@ -3433,6 +3437,10 @@ packages:
       '@types/node': 17.0.23
     dev: false
 
+  /@types/node/16.11.27:
+    resolution: {integrity: sha512-C1pD3kgLoZ56Uuy5lhfOxie4aZlA3UMGLX9rXteq4WitEZH6Rl80mwactt9QG0w0gLFlN/kLBTFnGXtDVWvWQw==}
+    dev: false
+
   /@types/node/17.0.23:
     resolution: {integrity: sha512-UxDxWn7dl97rKVeVS61vErvw086aCYhDLyvRQZ5Rk65rZKepaFdm53GeqXaKBuOhED4e9uWq34IC3TdSdJJ2Gw==}
 
@@ -3652,6 +3660,14 @@ packages:
       '@ucast/core': 1.10.1
       '@ucast/js': 3.0.2
       '@ucast/mongo': 2.4.2
+    dev: false
+
+  /@vespaiach/axios-fetch-adapter/0.2.2_axios@0.26.1:
+    resolution: {integrity: sha512-kX9PK/TKTaN3XxU6LW8hPJSwZ4cU8yeAEBsjFjm4qw+clXjS45Hc6lYIguzsDKwBTNVtF3PG0JVt0y/vYmMeWg==}
+    peerDependencies:
+      axios: ^0.26.1
+    dependencies:
+      axios: 0.26.1
     dev: false
 
   /@webassemblyjs/ast/1.11.1:
@@ -5106,6 +5122,14 @@ packages:
   /cookie/0.4.2:
     resolution: {integrity: sha512-aSWTXFzaKWkvHO1Ny/s+ePFpvKsPnjc551iI41v3ny/ow6tBG5Vd+FuqGNhh1LxOmVzOlGUriIlOaokOvhaStA==}
     engines: {node: '>= 0.6'}
+    dev: false
+
+  /cookies-next/2.0.4:
+    resolution: {integrity: sha512-fqjwJNksW/WEu8ou1SEXJCKYyg7nrQRsjlfbIF5tp96SrQq1Fzome1To27tPxhoPN/vgFuzCt573Pri9bE+H+g==}
+    dependencies:
+      '@types/cookie': 0.4.1
+      '@types/node': 16.11.27
+      cookie: 0.4.2
     dev: false
 
   /cookies/0.8.0:
@@ -9635,13 +9659,6 @@ packages:
       nodemailer-fetch: 1.6.0
     dev: false
 
-  /nookies/2.5.2:
-    resolution: {integrity: sha512-x0TRSaosAEonNKyCrShoUaJ5rrT5KHRNZ5DwPCuizjgrnkpE5DRf3VL7AyyQin4htict92X1EQ7ejDbaHDVdYA==}
-    dependencies:
-      cookie: 0.4.2
-      set-cookie-parser: 2.4.8
-    dev: false
-
   /normalize-path/3.0.0:
     resolution: {integrity: sha512-6eZs5Ls3WtCisHWp9S2GUy8dqkpGi4BVSz3GaqiE6ezub0512ESztXUwUB6C6IKbQkY2Pnb/mD4WYojCRwcwLA==}
     engines: {node: '>=0.10.0'}
@@ -11485,6 +11502,10 @@ packages:
       ajv-keywords: 5.1.0_ajv@8.11.0
     dev: false
 
+  /schema/0.2.1:
+    resolution: {integrity: sha1-uvNWiI+1H4nqIpao3h/lJ8VnvoQ=}
+    dev: false
+
   /select-hose/2.0.0:
     resolution: {integrity: sha1-Yl2GWPhlr0Psliv8N2o3NZpJlMo=}
     dev: false
@@ -11619,10 +11640,6 @@ packages:
 
   /set-blocking/2.0.0:
     resolution: {integrity: sha1-BF+XgtARrppoA93TgrJDkrPYkPc=}
-    dev: false
-
-  /set-cookie-parser/2.4.8:
-    resolution: {integrity: sha512-edRH8mBKEWNVIVMKejNnuJxleqYE/ZSdcT8/Nem9/mmosx12pctd80s2Oy00KNZzrogMZS5mauK2/ymL1bvlvg==}
     dev: false
 
   /set-value/2.0.1:

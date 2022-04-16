@@ -1,6 +1,6 @@
 import { AuthData } from "$lib/services/auth";
 import React, { useContext, createContext, useState, useCallback } from "react";
-import { setCookie } from "nookies";
+import { setCookies } from "cookies-next";
 
 interface AuthContext extends Partial<AuthData> {
   setAuth: (props: AuthData) => void;
@@ -23,7 +23,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   const setAuth = useCallback((props: AuthData) => {
     setJwt(props.jwt);
     setUser(props.user);
-    setCookie(null, "keeper.sid.access", props.jwt);
+    setCookies("keeper.sid.access", props.jwt, { maxAge: 60 * 60 * 24 * 15 });
   }, []);
 
   return (
