@@ -4,6 +4,7 @@ import {
   getAuth,
   GoogleAuthProvider,
 } from "firebase/auth";
+import { getFirestore } from "firebase/firestore";
 
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
@@ -25,3 +26,5 @@ export const googleProvider = new GoogleAuthProvider();
 // Start a sign in process for an unauthenticated user.
 googleProvider.addScope("profile");
 googleProvider.addScope("email");
+
+export const firestore = getFirestore(app);

@@ -1,44 +1,49 @@
-import { useState } from "react";
-import logo from "../../logo.svg";
+import { getContacts } from "$lib/services/contact";
+import React, { Component, Suspense } from "react";
 
 const HomePage = () => {
-  const [count, setCount] = useState(0);
-
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>Hello Vite + React!</p>
-        <p>
-          <button type="button" onClick={() => setCount((count) => count + 2)}>
-            count is: {count}
-          </button>
-        </p>
-        <p>
-          Edit <code>App.tsx</code> and save to test HMR updates.
-        </p>
-        <p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-          {" | "}
-          <a
-            className="App-link"
-            href="https://vitejs.dev/guide/features.html"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Vite Docs
-          </a>
-        </p>
-      </header>
+      <ErrorBoundary fallback="Error">
+        <Suspense fallback="Loading...">
+          <Contacts />
+        </Suspense>
+      </ErrorBoundary>
     </div>
   );
 };
 
 export default HomePage;
+
+class ErrorBoundary extends Component<{
+  fallback: React.ReactNode;
+  children: React.ReactNode;
+}> {
+  state = { hasError: false, error: null };
+  static getDerivedStateFromError(error: Error) {
+    return {
+      hasError: true,
+      error,
+    };
+  }
+  render() {
+    if (this.state.hasError) {
+      return this.props.fallback;
+    }
+    return this.props.children;
+  }
+}
+
+const contactsSuspender = getContacts();
+
+function Contacts() {
+  const contacts = contactsSuspender.read();
+
+  return (
+    <div>
+      {contacts.map((c) => {
+        return <h4 key={c.name}>{c.name}</h4>;
+      })}
+    </div>
+  );
+}
