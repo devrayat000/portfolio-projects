@@ -79,8 +79,10 @@ importers:
       '@types/react-dom': ^18.0.0
       '@vitejs/plugin-react': ^1.3.0
       firebase: ^9.6.11
+      mantine: workspace:*
       react: ^18.0.0
       react-dom: ^18.0.0
+      react-router-dom: ^6.3.0
       typescript: ^4.6.3
       vite: ^2.9.5
       vite-tsconfig-paths: ^3.4.1
@@ -89,8 +91,10 @@ importers:
       '@mantine/hooks': 4.1.3_react@18.0.0
       '@mantine/rte': 4.1.4_10abcfe38a103349173ece69f20945fa
       firebase: 9.6.11
+      mantine: link:../../packages/mantine
       react: 18.0.0
       react-dom: 18.0.0_react@18.0.0
+      react-router-dom: 6.3.0_react-dom@18.0.0+react@18.0.0
     devDependencies:
       '@types/react': 18.0.1
       '@types/react-dom': 18.0.1
@@ -840,16 +844,6 @@ packages:
     peerDependencies:
       '@babel/core': ^7.0.0-0
     dependencies:
-      '@babel/helper-plugin-utils': 7.16.7
-    dev: false
-
-  /@babel/plugin-syntax-jsx/7.14.5_@babel+core@7.16.7:
-    resolution: {integrity: sha512-ohuFIsOMXJnbOMRfX7/w7LocdR6R7whhuRD4ax8IipLcLPlZGJKkBxgHp++U4N/vKyU16/YDQr2f5seajD3jIw==}
-    engines: {node: '>=6.9.0'}
-    peerDependencies:
-      '@babel/core': ^7.0.0-0
-    dependencies:
-      '@babel/core': 7.16.7
       '@babel/helper-plugin-utils': 7.16.7
     dev: false
 
@@ -1667,7 +1661,7 @@ packages:
     dependencies:
       '@babel/core': 7.16.7
       '@babel/helper-module-imports': 7.16.7
-      '@babel/plugin-syntax-jsx': 7.14.5_@babel+core@7.16.7
+      '@babel/plugin-syntax-jsx': 7.16.7_@babel+core@7.16.7
       '@babel/runtime': 7.17.9
       '@emotion/hash': 0.8.0
       '@emotion/memoize': 0.7.5
