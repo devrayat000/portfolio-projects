@@ -18,9 +18,9 @@ const AuthProvider = ({ children }: Props) => {
     return onAuthStateChanged(
       auth,
       (user) => {
+        setUser(user);
+        setLoading(false);
         if (user) {
-          setUser(user);
-          setLoading(false);
           navigate((location.state as any)?.from?.pathname ?? "/", {
             replace: true,
           });

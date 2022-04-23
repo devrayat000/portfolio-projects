@@ -8,12 +8,12 @@ import { getFirestore } from "firebase/firestore";
 
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-  apiKey: "AIzaSyBgtu0yX-W-UCB-eLrGJn8jGMZKpc5yY00",
-  authDomain: "nonamed-chat-app.firebaseapp.com",
-  projectId: "nonamed-chat-app",
-  storageBucket: "nonamed-chat-app.appspot.com",
+  apiKey: import.meta.env.FIREBASE_API_KEY,
+  authDomain: import.meta.env.FIREBASE_AUTH_DOMAIN,
+  projectId: import.meta.env.FIREBASE_PROJECT_ID,
+  storageBucket: import.meta.env.FIREBASE_STORAGE_BUCKET,
   messagingSenderId: "9287616661",
-  appId: "1:9287616661:web:03e97fe9cb64a01954b39c",
+  appId: import.meta.env.FIREBASE_APP_ID,
   measurementId: "G-6S80LYS87J",
 };
 

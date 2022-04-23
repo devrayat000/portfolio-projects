@@ -1,14 +1,74 @@
+import Contact, { contactConverter } from "$lib/models/contact";
+import { firestore } from "$lib/modules/firebase";
 import { getContacts } from "$lib/services/contact";
-import React, { Component, Suspense } from "react";
+import { useAuth } from "$lib/store";
+import {
+  Anchor,
+  AppShell,
+  Avatar,
+  Button,
+  Header,
+  Image,
+  List,
+  Navbar,
+  Text,
+} from "@mantine/core";
+import { useListState } from "@mantine/hooks";
+import { collection, query, onSnapshot } from "firebase/firestore";
+import React, { Component, Suspense, useEffect, useState } from "react";
+import { Link, NavLink } from "react-router-dom";
+
+const contactsQuery = query(
+  collection(firestore, "contacts").withConverter(contactConverter)
+);
 
 const HomePage = () => {
+  const user = useAuth((state) => state.user);
+
+  const [contacts, handler] = useListState<Contact>([]);
+
+  useEffect(() => {
+    return onSnapshot(contactsQuery, (snapshot) => {
+      handler.append(...snapshot.docs.map((result) => result.data()));
+    });
+  }, []);
+
   return (
     <div className="App">
-      <ErrorBoundary fallback="Error">
-        <Suspense fallback="Loading...">
-          <Contacts />
-        </Suspense>
-      </ErrorBoundary>
+      <AppShell
+        header={
+          <Header height={60} p="xs">
+            <Avatar src={user?.photoURL} alt={user?.displayName!} radius="xl" />
+          </Header>
+        }
+        navbar={
+          <Navbar
+            p="md"
+            hiddenBreakpoint="sm"
+            hidden={!true}
+            width={{ sm: 300, lg: 400 }}
+          >
+            {contacts.length > 0 && (
+              <List listStyleType="none" spacing={2}>
+                {contacts.map((c) => (
+                  <List.Item key={c.name}>
+                    <Button
+                      fullWidth
+                      component={NavLink}
+                      variant="default"
+                      to="/"
+                    >
+                      {c.name}
+                    </Button>
+                  </List.Item>
+                ))}
+              </List>
+            )}
+          </Navbar>
+        }
+      >
+        <Text>Hi</Text>
+      </AppShell>
     </div>
   );
 };
@@ -32,18 +92,4 @@ class ErrorBoundary extends Component<{
     }
     return this.props.children;
   }
-}
-
-const contactsSuspender = getContacts();
-
-function Contacts() {
-  const contacts = contactsSuspender.read();
-
-  return (
-    <div>
-      {contacts.map((c) => {
-        return <h4 key={c.name}>{c.name}</h4>;
-      })}
-    </div>
-  );
 }
