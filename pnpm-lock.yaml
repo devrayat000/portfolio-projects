@@ -79,6 +79,7 @@ importers:
       '@types/react-dom': ^18.0.0
       '@vitejs/plugin-react': ^1.3.0
       firebase: ^9.6.11
+      firebase-local: workspace:*
       mantine: workspace:*
       react: ^18.0.0
       react-dom: ^18.0.0
@@ -91,6 +92,7 @@ importers:
       '@mantine/hooks': 4.1.3_react@18.0.0
       '@mantine/rte': 4.1.4_10abcfe38a103349173ece69f20945fa
       firebase: 9.6.11
+      firebase-local: link:../../packages/firebase-local
       mantine: link:../../packages/mantine
       react: 18.0.0
       react-dom: 18.0.0_react@18.0.0
@@ -204,6 +206,25 @@ importers:
       eslint-config-next: 12.1.4
       eslint-config-prettier: 8.5.0
       eslint-plugin-react: 7.28.0
+
+  packages/firebase-local:
+    specifiers:
+      '@types/react': ^18.0.1
+      '@types/react-dom': ^17.0.11
+      config: workspace:*
+      firebase: ^9.6.11
+      tsconfig: workspace:*
+      typescript: ^4.5.3
+      zustand: ^4.0.0-rc.0
+    dependencies:
+      firebase: 9.6.11
+      zustand: 4.0.0-rc.0
+    devDependencies:
+      '@types/react': 18.0.1
+      '@types/react-dom': 17.0.15
+      config: link:../config
+      tsconfig: link:../tsconfig
+      typescript: 4.6.3
 
   packages/mantine:
     specifiers:
@@ -14216,6 +14237,12 @@ packages:
       react: 17.0.2
     dev: false
 
+  /use-sync-external-store/1.0.0:
+    resolution: {integrity: sha512-AFVsxg5GkFg8GDcxnl+Z0lMAz9rE8DGJCc28qnBuQF7lac57B5smLcT37aXpXIIPz75rW4g3eXHPjhHwdGskOw==}
+    peerDependencies:
+      react: ^16.8.0 || ^17.0.0 || ^18.0.0-rc
+    dev: false
+
   /use-sync-external-store/1.0.0_react@18.0.0:
     resolution: {integrity: sha512-AFVsxg5GkFg8GDcxnl+Z0lMAz9rE8DGJCc28qnBuQF7lac57B5smLcT37aXpXIIPz75rW4g3eXHPjhHwdGskOw==}
     peerDependencies:
@@ -14809,6 +14836,21 @@ packages:
       nanoclone: 0.2.1
       property-expr: 2.0.5
       toposort: 2.0.2
+    dev: false
+
+  /zustand/4.0.0-rc.0:
+    resolution: {integrity: sha512-jMimx6EIlLb/hwgnkVZ4Wd/UI73wXedUB6L/kcdIYbOYHcjIFRc7JEB8IXFZt+1rQq2qwuts7kN6kuHhFss47A==}
+    engines: {node: '>=12.7.0'}
+    peerDependencies:
+      immer: '>=9.0'
+      react: '>=16.8'
+    peerDependenciesMeta:
+      immer:
+        optional: true
+      react:
+        optional: true
+    dependencies:
+      use-sync-external-store: 1.0.0
     dev: false
 
   /zustand/4.0.0-rc.0_react@18.0.0:

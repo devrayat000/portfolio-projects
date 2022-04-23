@@ -8,11 +8,12 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "mantine": "workspace:*",
+    "firebase-local": "workspace:*",
     "@mantine/core": "^4.1.3",
     "@mantine/hooks": "^4.1.3",
     "@mantine/rte": "^4.1.4",
     "firebase": "^9.6.11",
-    "mantine": "workspace:*",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
     "react-router-dom": "^6.3.0"
