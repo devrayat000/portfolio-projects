@@ -1,9 +1,10 @@
 import { initializeApp } from "firebase/app";
 import { getDatabase } from "firebase/database";
 import {
-  initializeAuth,
   browserLocalPersistence,
   indexedDBLocalPersistence,
+  GoogleAuthProvider,
+  getAuth,
 } from "firebase/auth";
 
 const firebaseConfig = {
@@ -16,8 +17,23 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 
-export const auth = initializeAuth(app, {
-  persistence: [browserLocalPersistence, indexedDBLocalPersistence],
-});
+export const auth = getAuth(app);
+
+auth.setPersistence(indexedDBLocalPersistence);
+auth.setPersistence(browserLocalPersistence);
 
 export const db = getDatabase(app);
+
+export const provider = {
+  get google() {
+    const p = new GoogleAuthProvider();
+    p.addScope("profile");
+    p.addScope("email");
+    return p;
+  },
+};
+// export namespace provider {
+//   export const google = new GoogleAuthProvider();
+//   google.addScope("profile");
+//   google.addScope("email");
+// }
