@@ -20,7 +20,7 @@ export default function LoginPage(props: PaperProps<"div">) {
         </Text>
 
         <ErrorBoundry>
-          <Group grow mb="md" mt="md">
+          <Group grow my="md">
             <GoogleButton radius="xl">Google</GoogleButton>
           </Group>
         </ErrorBoundry>

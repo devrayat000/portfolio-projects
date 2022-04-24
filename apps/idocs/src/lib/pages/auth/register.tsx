@@ -1,4 +1,3 @@
-import { useForm } from "@mantine/hooks";
 import {
   Text,
   Paper,
@@ -20,7 +19,7 @@ export default function RegisterPage(props: PaperProps<"div">) {
         </Text>
 
         <ErrorBoundry>
-          <Group grow mb="md" mt="md">
+          <Group grow my="md">
             <GoogleButton radius="xl">Google</GoogleButton>
           </Group>
         </ErrorBoundry>

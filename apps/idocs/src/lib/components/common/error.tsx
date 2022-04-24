@@ -5,7 +5,7 @@ const ErrorBoundry = ({ children }: { children: React.ReactNode }) => {
   return (
     <ReactErrorBoundary
       fallbackRender={({ error, resetErrorBoundary }) => (
-        <Group>
+        <Group grow my="md">
           <Text color="red">{error.message}</Text>
           <Button
             variant="filled"
