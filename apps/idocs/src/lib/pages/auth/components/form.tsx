@@ -17,6 +17,9 @@ import {
 } from "firebase/auth";
 
 import { auth } from "$lib/modules/firebase";
+import { useStepper } from "$lib/hooks/useStepper";
+
+export const steps = ["demo1", "demo2", "demo3"];
 
 export function RegisterForm() {
   const form = useForm({
@@ -44,6 +47,7 @@ export function RegisterForm() {
   });
 
   const handleError = useErrorHandler();
+  const { nextStep } = useStepper("tab");
 
   return (
     <form
@@ -58,6 +62,7 @@ export function RegisterForm() {
           await updateProfile(cred.user, { displayName: name.trim() });
           await cred.user.reload();
           await updateCurrentUser(auth, cred.user);
+          nextStep();
         } catch (error) {
           handleError(error);
         }
@@ -132,11 +137,11 @@ export function LoginForm() {
 
   return (
     <form
-      onSubmit={form.onSubmit(({ email, password }) =>
-        signInWithEmailAndPassword(auth, email.trim(), password).catch(
+      onSubmit={form.onSubmit(({ email, password }) => {
+        return signInWithEmailAndPassword(auth, email.trim(), password).catch(
           handleError
-        )
-      )}
+        );
+      })}
     >
       <Group direction="column" grow>
         <TextInput

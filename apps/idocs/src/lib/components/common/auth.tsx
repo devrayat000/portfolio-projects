@@ -9,11 +9,11 @@ const AuthProvider = ({ children }: { children: React.ReactChild }) => {
   return (
     <FirebaseAuthProvider
       auth={auth}
-      onUserLogIn={() => {
-        navigate((location.state as any)?.from?.pathname ?? "/", {
-          replace: true,
-        });
-      }}
+      // onUserLogIn={() => {
+      //   navigate((location.state as any)?.from?.pathname ?? "/", {
+      //     replace: true,
+      //   });
+      // }}
     >
       {children}
     </FirebaseAuthProvider>

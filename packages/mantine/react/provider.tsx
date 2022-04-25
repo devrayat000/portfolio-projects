@@ -42,6 +42,7 @@ const MantineThemeProvider: React.FC<MantineThemeProviderProps> = ({
         withGlobalStyles
         withNormalizeCSS
         theme={{ colorScheme }}
+        emotionOptions={{ key: "mantine", prepend: true }}
       >
         {children}
       </MantineProvider>

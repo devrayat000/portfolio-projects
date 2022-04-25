@@ -28,12 +28,19 @@ const HomePage = () => {
           radius="md"
           shadow="md"
           withBorder
-          sx={(theme) => ({
+          sx={{
             display: "grid",
-            placeItems: "center",
-          })}
+            placeItems: "stretch",
+            aspectRatio: "1/1",
+          }}
         >
-          <UnstyledButton onClick={() => navigate("d/" + nanoid())}>
+          <UnstyledButton
+            sx={{
+              display: "grid",
+              placeItems: "center",
+            }}
+            onClick={() => navigate("d/" + nanoid())}
+          >
             Create
           </UnstyledButton>
         </Paper>

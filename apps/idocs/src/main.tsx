@@ -1,13 +1,65 @@
-import React from "react";
+import { StrictMode, useCallback } from "react";
 import ReactDOM from "react-dom/client";
-import MantineThemeProvider from "mantine/react/provider";
+import { MantineThemeProvider } from "mantine";
 
 import App from "./App";
+import {
+  ColorScheme,
+  ColorSchemeProvider,
+  MantineProvider,
+} from "@mantine/core";
+import { useColorScheme, useHotkeys, useLocalStorage } from "@mantine/hooks";
 
-ReactDOM.createRoot(document.getElementById("root")!).render(
-  <React.StrictMode>
-    <MantineThemeProvider themeKey="idocs.theme">
-      <App />
-    </MantineThemeProvider>
-  </React.StrictMode>
-);
+const root = ReactDOM.createRoot(document.getElementById("root")!);
+const themeKey = "idocs.theme";
+
+if (import.meta.env.PROD) {
+  root.render(
+    <StrictMode>
+      <MyApp />
+    </StrictMode>
+  );
+} else {
+  root.render(
+    <StrictMode>
+      <MantineThemeProvider themeKey={themeKey}>
+        <App />
+      </MantineThemeProvider>
+    </StrictMode>
+  );
+}
+
+function MyApp() {
+  const preferedColorScheme = useColorScheme();
+
+  const [colorScheme, setColorScheme] = useLocalStorage({
+    key: themeKey,
+    defaultValue: preferedColorScheme,
+  });
+
+  useHotkeys([["mod+J", () => toggleColorScheme()]]);
+
+  const toggleColorScheme = useCallback(
+    (scheme?: ColorScheme) => {
+      setColorScheme(
+        scheme ?? ((prevScheme) => (prevScheme === "dark" ? "light" : "dark"))
+      );
+    },
+    [setColorScheme]
+  );
+  return (
+    <ColorSchemeProvider
+      colorScheme={colorScheme}
+      toggleColorScheme={toggleColorScheme}
+    >
+      <MantineProvider
+        withGlobalStyles
+        withNormalizeCSS
+        theme={{ colorScheme }}
+        emotionOptions={{ key: "mantine" }}
+      >
+        <App />
+      </MantineProvider>
+    </ColorSchemeProvider>
+  );
+}

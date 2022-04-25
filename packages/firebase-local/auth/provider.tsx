@@ -5,7 +5,7 @@ import { useAuth } from "./store";
 export interface AuthProviderProps {
   children: React.ReactChild;
   auth: Auth;
-  onUserLogIn(user: User): void;
+  onUserLogIn?(user: User): void;
 }
 
 export const AuthProvider: React.FC<AuthProviderProps> = ({
@@ -23,7 +23,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({
       (user) => {
         setUser(user);
         setLoading(false);
-        if (user) onUserLogIn(user);
+        if (user) onUserLogIn?.call(null, user);
       },
       (error) => {
         console.log(error);
