@@ -1,11 +1,7 @@
 <script lang="ts">
 	import ChevronUpIcon from '$lib/components/icons/chevron_up.svelte';
-	import {
-		Disclosure,
-		DisclosureButton,
-		DisclosurePanel,
-		Transition
-	} from '@rgossiaux/svelte-headlessui';
+	import { Disclosure, DisclosureButton, DisclosurePanel } from '@rgossiaux/svelte-headlessui';
+	import { grow } from '$lib/utils/transition';
 
 	export let title: string;
 	export let url: string;
@@ -22,11 +18,15 @@
                 `}
 	>
 		<span>Wanna see how it's made?</span>
+		<!-- {#if open}
+			<span transition:rotate> -->
 		<ChevronUpIcon
 			class={`${!open ? 'rotate-180' : 'rotate-0'} transition-transform text-blue-500`}
 		/>
+		<!-- </span>
+		{/if} -->
 	</DisclosureButton>
-	<Transition
+	<!-- <Transition
 		appear
 		show={open}
 		aria-expanded={open}
@@ -37,15 +37,19 @@
 		leaveFrom="scale-y-100 opacity-100"
 		leaveTo="scale-y-0 opacity-0"
 		unmount={false}
-	>
-		<DisclosurePanel static aria-hidden={!open}>
-			<iframe
-				class="aspect-video w-full"
-				name="Meal recipe on Youtube"
-				{title}
-				src={url.replace('watch?v=', 'embed/')}
-				frameborder="0"
-			/>
-		</DisclosurePanel>
-	</Transition>
+	> -->
+	{#if open}
+		<div transition:grow|local>
+			<DisclosurePanel as="div" static aria-hidden={!open}>
+				<iframe
+					class="aspect-video w-full"
+					name="Meal recipe on Youtube"
+					{title}
+					src={url.replace('watch?v=', 'embed/')}
+					frameborder="0"
+				/>
+			</DisclosurePanel>
+		</div>
+	{/if}
+	<!-- </Transition> -->
 </Disclosure>

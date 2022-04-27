@@ -36,11 +36,11 @@
 
 <svelte:window
 	on:sveltekit:navigation-start={() => {
-		console.log('Navigation started!');
+		console.log('Navigation started on event!');
 		NProgress.start();
 	}}
 	on:sveltekit:navigation-end={() => {
-		console.log('Navigation ended!');
+		console.log('Navigation ended on event!');
 		NProgress.done();
 	}}
 />

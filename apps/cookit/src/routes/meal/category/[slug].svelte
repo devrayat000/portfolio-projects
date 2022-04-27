@@ -1,23 +1,40 @@
 <script lang="ts" context="module">
 	import type { Load } from '@sveltejs/kit';
+
 	import { categoryBySlug } from '$lib/utils/category_by_slug';
+	import createQueryClient from '$lib/utils/query';
+	import { getMealsByCategory } from '$lib/services/category';
+	import { makeUrl } from '$lib/utils/axios';
 
 	export const prerender = true;
 
 	export const load: Load<StaticPath> = async ({ params }) => {
 		const categorySlug = params.slug;
+		const queryClient = createQueryClient();
 		console.log('category:', categorySlug);
 
-		const res = await mealdb.get<{ meals: IMealBase[] }>('/filter.php', {
-			params: { c: categorySlug }
-		});
+		const { data, status } = await queryClient.fetchQuery(
+			['category', categorySlug],
+			getMealsByCategory
+		);
 		const category = await categoryBySlug(categorySlug);
+
+		if (status >= 400 && status < 500) {
+			return {
+				status: 404,
+				error: new Error(`Meals with category ${category} not found!`)
+			};
+		}
 
 		return {
 			props: {
 				category: category,
-				meals: res.data.meals
-			}
+				meals: data.meals
+			},
+			cache: {
+				maxage: 60 * 60 * 24 // 1 day
+			},
+			dependencies: [makeUrl('filter.php', { c: categorySlug })]
 		};
 	};
 
@@ -33,8 +50,7 @@
 	import HeroSection from '$lib/components/card/hero.svelte';
 	import { capitalize } from '$lib/utils/capitalize';
 	import type { ICategory } from '$lib/types/category';
-	import type { IMeal, IMealBase } from '$lib/types/meal';
-	import { mealdb } from '$lib/utils/axios';
+	import type { IMeal } from '$lib/types/meal';
 
 	export let category: ICategory;
 	export let meals: IMeal[];
@@ -60,7 +76,7 @@
 	<section class="container">
 		<HeroSection
 			title={capitalize(category.strCategory)}
-			description={category.strCategoryDescription.replace(/(\[\d+\])/g, '<sup>$1</sup>')}
+			description={category.strCategoryDescription}
 			image={category.strCategoryThumb}
 		/>
 		<Meals {meals} />

@@ -17,15 +17,7 @@
 	{meal}
 	class="p-0.5 shadow-md hover:shadow-lg w-80 rounded card bg-base-100 prose-h3:my-0"
 >
-	<Image
-		src={meal.strMealThumb}
-		alt={meal.strMeal}
-		object-fit="contain"
-		class="image-full"
-		layout="fill"
-		width={320}
-		height={320}
-	/>
+	<Image src={meal.strMealThumb} alt={meal.strMeal} class="image-full" width={320} height={320} />
 	<div role="contentinfo" class="p-2 card-body">
 		<h2 class="text-ellipsis line-clamp-1 mt-4 mb-1 md:mb-2">
 			{meal['strMeal']}

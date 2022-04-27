@@ -5,6 +5,7 @@
 	import { makeSlug } from '$lib/utils/slug';
 	import createQueryClient from '$lib/utils/query';
 	import { getMealById } from '$lib/services/meal';
+	import { makeUrl } from '$lib/utils/axios';
 
 	export const prerender = true;
 
@@ -13,10 +14,9 @@
 		console.log('id:', id);
 
 		const queryClient = createQueryClient();
-
 		const res = await queryClient.fetchQuery(['meal', id], getMealById);
 
-		if (res.status == 404) {
+		if ((res.status >= 400 && res.status < 500) || !res.data.meals) {
 			return {
 				error: new Error(`Meal with id ${id} not found!`),
 				status: 404
@@ -26,6 +26,10 @@
 		return {
 			props: {
 				meal: parseIngredients(res.data.meals[0])
+			},
+			dependencies: [makeUrl('lookup.php', { i: id })],
+			cache: {
+				maxage: 60 * 60 * 24 // 1 day
 			}
 		};
 	};
@@ -99,7 +103,7 @@
 						href={meal.strSource}
 						target="_blank"
 						rel="noreferrer noopener"
-						class="btn btn-secondary"
+						class="btn btn-secondary rounded-md"
 					>
 						View Original
 					</a>

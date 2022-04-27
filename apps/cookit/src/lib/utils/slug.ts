@@ -1,6 +1,7 @@
 export function makeSlug(payload: string): string {
 	return (
 		payload
+			.trim()
 			.replace(/([()'"&,])/g, '')
 			// .replace(/(\(|\)|'|"|&|,)/g, '')
 			.replace(/([\s-_]+)/g, '_')
@@ -11,7 +12,7 @@ export function makeSlug(payload: string): string {
 }
 
 export function extractIdFromSlug(payload: string): string {
-	const [match] = /(?<=_)(\d+){5}$/.exec(payload)!;
+	const [match] = /(?<=_)(\d+){5}$/.exec(payload.trim())!;
 	return match;
 }
 

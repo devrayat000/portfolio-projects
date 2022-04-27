@@ -1,4 +1,5 @@
 import adapter from '@sveltejs/adapter-auto';
+import netlifyAdapter from '@sveltejs/adapter-netlify'
 import preprocess from 'svelte-preprocess';
 import image from 'svelte-image';
 
@@ -15,6 +16,10 @@ const config = {
 	},
 
 	kit: {
+		// adapter: netlifyAdapter({
+		// 	edge: false,
+		// 	split: false
+		// }),
 		adapter: adapter(),
 	},
 };

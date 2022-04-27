@@ -5,7 +5,7 @@
 <a
 	{href}
 	{...$$restProps}
-	class={`btn transition-transform hover:scale-105 ${$$restProps.class ?? ''}`.trim()}
+	class={`btn rounded-md transition-transform hover:scale-105 ${$$restProps.class ?? ''}`.trim()}
 >
 	<slot />
 </a>

@@ -2,18 +2,24 @@
 	import type { Load } from '@sveltejs/kit';
 	// import {} from '@sveltestack/svelte-query'
 	import { getRandomMeals } from '$lib/utils/random_meals';
-	import createQueryClient from '$lib/utils/query';
+	import { makeUrl } from '$lib/utils/axios';
+	// import createQueryClient from '$lib/utils/query';
 
 	export const prerender = true;
 
 	export const load: Load = async ({}) => {
-		const queryClient = createQueryClient();
+		// const queryClient = createQueryClient();
 		const { meals } = await getRandomMeals();
 		// const { meals } = await queryClient.fetchQuery('random', getRandomMeals);
 
 		return {
 			props: {
+				// meals: parseIngredients(meals)
 				meals
+			},
+			dependencies: [makeUrl('random.php')],
+			cache: {
+				maxage: 60 * 60 // 1 hour
 			}
 		};
 	};
@@ -26,8 +32,9 @@
 	import Footer from '$lib/components/card/footer.svelte';
 	import HeroSection from '$lib/components/card/hero.svelte';
 	import Meals from '$lib/components/list/meals.svelte';
-	import SearchIcon from '$lib/components/search/search_icon.svelte';
+	import Search from '$lib/components/search/search.svelte';
 	import type { IMeal } from '$lib/types/meal';
+	import { parseIngredients } from '$lib/utils/parse_ingredients';
 
 	export let meals: IMeal[];
 </script>
@@ -69,7 +76,7 @@
 						Meals
 					</h1>
 				</div>
-				<SearchIcon />
+				<Search />
 			</section>
 
 			<div role="heading" aria-level={3} class="flex justify-center m-4">

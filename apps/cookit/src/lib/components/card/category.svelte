@@ -15,7 +15,6 @@
 	<Image
 		src={category.strCategoryThumb}
 		alt={`Category - ${category.strCategory}`}
-		object-fit="contain"
 		object-position="center top"
 	/>
 	<div role="contentinfo" class="card-body absolute bottom-0">
