@@ -6,7 +6,7 @@
 </script>
 
 <a
-	href={`/meal/${makeSlug(meal.strMeal)}_${meal.idMeal}`}
+	href={`/meal/${makeSlug(meal.strMeal)}-${meal.idMeal}`}
 	title={meal.strMeal}
 	sveltekit:noscroll
 	{...$$restProps}

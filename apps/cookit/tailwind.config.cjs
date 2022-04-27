@@ -6,7 +6,7 @@
   theme: {
     extend: {
       zIndex: {
-        appbar: '1200',
+        appbar: '1000',
       },
       flexGrow: {
         2: 2,

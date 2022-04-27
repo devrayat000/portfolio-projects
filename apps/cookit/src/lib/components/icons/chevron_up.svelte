@@ -9,6 +9,7 @@
 	class={`h-5 w-5 ${clazz}`}
 	viewBox="0 0 20 20"
 	fill="currentColor"
+	{...$$restProps}
 >
 	<path
 		fill-rule="evenodd"

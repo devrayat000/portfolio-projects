@@ -2,6 +2,8 @@
 	import type { Load } from '@sveltejs/kit';
 	import { categoryBySlug } from '$lib/utils/category_by_slug';
 
+	export const prerender = true;
+
 	export const load: Load<StaticPath> = async ({ params }) => {
 		const categorySlug = params.slug;
 		console.log('category:', categorySlug);

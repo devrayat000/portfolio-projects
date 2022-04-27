@@ -1,7 +1,10 @@
+<script context="module">
+</script>
+
 <script lang="ts">
 	// import { faYoutube } from '@fortawesome/free-brands-svg-icons'
 	// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-
+	import Image from 'svelte-image';
 	import MealLink from '$lib/components/link/meal.svelte';
 	import YoutubeIcon from '$lib/components/icons/youtube.svelte';
 
@@ -14,11 +17,12 @@
 	{meal}
 	class="p-0.5 shadow-md hover:shadow-lg w-80 rounded card bg-base-100 prose-h3:my-0"
 >
-	<img
+	<Image
 		src={meal.strMealThumb}
 		alt={meal.strMeal}
 		object-fit="contain"
 		class="image-full"
+		layout="fill"
 		width={320}
 		height={320}
 	/>

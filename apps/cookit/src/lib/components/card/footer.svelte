@@ -22,7 +22,7 @@
 	<div>
 		<span class="footer-title">Social</span>
 		<div class="grid grid-flow-col gap-4">
-			<a>
+			<a href="https://www.facebook.com/me">
 				<svg
 					xmlns="http://www.w3.org/2000/svg"
 					width="24"
@@ -35,7 +35,7 @@
 					/>
 				</svg>
 			</a>
-			<a>
+			<a href="https://www.facebook.com/me/">
 				<svg
 					xmlns="http://www.w3.org/2000/svg"
 					width="24"
@@ -48,7 +48,7 @@
 					/>
 				</svg>
 			</a>
-			<a>
+			<a href="https://www.facebook.com/me/">
 				<svg
 					xmlns="http://www.w3.org/2000/svg"
 					width="24"

@@ -1,26 +1,30 @@
-import { getRandomMeals } from '$utils/random_meals'
-import { StatusCodes, ReasonPhrases } from 'http-status-codes'
-import { object, number } from 'yup'
+import { getRandomMeals } from '$lib/utils/random_meals';
+// import { StatusCodes, ReasonPhrases } from 'http-status-codes'
+// import { object, number } from 'yup'
 
 // import { mealdb } from '../../../utils/axios'
-import handler from '../../../utils/connect'
-// import { parseIngredients } from '../../../utils/parse_ingredients'
+import type { RequestHandler } from '@sveltejs/kit';
+import type { JSONObject } from '@sveltejs/kit/types/private';
+import type { IMeal } from '$lib/types/meal';
 
-const randomQueryValidator = object().shape({
-  limit: number().integer().default(10),
-})
+interface Params extends Record<string, string> {
+	limit: string;
+}
 
-export default handler.get(async (req, res, next) => {
-  try {
-    const { limit } = await randomQueryValidator.validate(req.query)
+interface Response extends JSONObject {
+	status: number;
+	meals: IMeal[];
+}
 
-    const { meals } = await getRandomMeals(limit)
+export const get: RequestHandler<Params, Response> = async ({ params }) => {
+	const limit = parseInt(params.limit || '10');
+	const { meals } = await getRandomMeals(limit);
 
-    res.status(StatusCodes.OK).json({
-      status: ReasonPhrases.OK,
-      meals,
-    })
-  } catch (error) {
-    next(error)
-  }
-})
+	return {
+		body: {
+			status: 200,
+			meals
+		},
+		status: 200
+	};
+};

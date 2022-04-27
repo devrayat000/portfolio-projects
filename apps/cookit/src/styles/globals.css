@@ -18,7 +18,8 @@
     prose-h4:text-sm md:prose-h4:text-base
     prose-li:my-1
     prose-ul:pl-0
-    prose-p:text-justify;
+    prose-p:text-justify
+    prose-img:my-0;
   }
 
   input[type="search"]::-webkit-search-decoration,
@@ -36,4 +37,20 @@
   sub, sup {
     font-size: 60%;
   }
+
+  *[contenteditable] {
+    @apply focus:outline-none focus-visible:outline-none;
+  }
+}
+
+#nprogress .spinner {
+  @apply inset-1/2;
+}
+
+#nprogress .overlay {
+  @apply absolute inset-0 bg-black/30 z-50;
+}
+
+#nprogress .spinner-icon {
+  @apply w-12 h-12;
 }

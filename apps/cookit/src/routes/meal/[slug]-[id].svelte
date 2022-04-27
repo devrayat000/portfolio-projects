@@ -1,23 +1,25 @@
 <script lang="ts" context="module">
 	import type { Load } from '@sveltejs/kit';
-	import { mealdb } from '$lib/utils/axios';
+
 	import { parseIngredients } from '$lib/utils/parse_ingredients';
-	import { extractIdFromSlug, makeSlug } from '$lib/utils/slug';
+	import { makeSlug } from '$lib/utils/slug';
+	import createQueryClient from '$lib/utils/query';
+	import { getMealById } from '$lib/services/meal';
 
 	export const prerender = true;
 
 	export const load: Load<StaticPath> = async ({ params }) => {
-		const slug = params.slug;
+		const id = params.id;
+		console.log('id:', id);
 
-		const id = extractIdFromSlug(slug);
+		const queryClient = createQueryClient();
 
-		const res = await mealdb.get<{ meals: IMeal[] }>('/lookup.php', {
-			params: { i: id }
-		});
+		const res = await queryClient.fetchQuery(['meal', id], getMealById);
 
 		if (res.status == 404) {
 			return {
-				notFound: true
+				error: new Error(`Meal with id ${id} not found!`),
+				status: 404
 			};
 		}
 
@@ -30,13 +32,15 @@
 
 	interface StaticPath extends Record<string, string> {
 		slug: string;
+		id: string;
 	}
 </script>
 
 <script lang="ts">
 	import { MetaTags } from 'svelte-meta-tags';
+	import Image from 'svelte-image';
 
-	import Youtube from '$lib/components/icons/youtube.svelte';
+	import Youtube from '$lib/components/meal/youtube.svelte';
 	import CategoryLink from '$lib/components/link/category.svelte';
 	import Breadcrumb from '$lib/components/list/breadcrumb.svelte';
 	import Info from '$lib/components/meal/info.svelte';
@@ -103,7 +107,7 @@
 			</div>
 			{#if meal.strMealThumb}
 				<div class="relative flex-1 aspect-square min-w-min">
-					<img
+					<Image
 						src={meal.strMealThumb}
 						alt={meal.strMeal}
 						object-fit="contain"
@@ -129,7 +133,9 @@
 			</section>
 			<section class="flex-2">
 				<h2 class="text-center">Instructions</h2>
-				<p contenteditable="true" bind:innerHTML={instructions} />
+				<p>
+					{@html instructions}
+				</p>
 			</section>
 		</article>
 	</section>

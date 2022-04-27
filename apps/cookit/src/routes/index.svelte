@@ -1,17 +1,20 @@
 <script lang="ts" context="module">
 	import type { Load } from '@sveltejs/kit';
+	// import {} from '@sveltestack/svelte-query'
 	import { getRandomMeals } from '$lib/utils/random_meals';
+	import createQueryClient from '$lib/utils/query';
 
 	export const prerender = true;
 
 	export const load: Load = async ({}) => {
+		const queryClient = createQueryClient();
 		const { meals } = await getRandomMeals();
+		// const { meals } = await queryClient.fetchQuery('random', getRandomMeals);
 
 		return {
 			props: {
 				meals
-			},
-			revalidate: 15 * 60
+			}
 		};
 	};
 </script>
