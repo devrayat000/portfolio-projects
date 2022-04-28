@@ -1,9 +1,10 @@
 <script lang="ts">
-	import { makeSlug } from '$lib/utils/slug';
+	import { categoryLink } from '$lib/utils/links';
 
 	export let category: string;
+	const href = categoryLink(category);
 </script>
 
-<a href={`/meal/category/${makeSlug(category)}`} title={`Category - ${category}`} {...$$restProps}>
+<a {href} title={`Category - ${category}`} {...$$restProps}>
 	<slot />
 </a>

@@ -38,4 +38,4 @@ export async function getAllMeals() {
 	return { allMeals, categories };
 }
 
-export const mealPromise = getAllMeals();
+// export const mealPromise = getAllMeals();

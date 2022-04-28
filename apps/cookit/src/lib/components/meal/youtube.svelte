@@ -2,6 +2,7 @@
 	import ChevronUpIcon from '$lib/components/icons/chevron_up.svelte';
 	import { Disclosure, DisclosureButton, DisclosurePanel } from '@rgossiaux/svelte-headlessui';
 	import { grow } from '$lib/utils/transition';
+	import { youtubeEmbedLink } from '$lib/utils/links';
 
 	export let title: string;
 	export let url: string;
@@ -45,7 +46,7 @@
 					class="aspect-video w-full"
 					name="Meal recipe on Youtube"
 					{title}
-					src={url.replace('watch?v=', 'embed/')}
+					src={youtubeEmbedLink(url)}
 					frameborder="0"
 				/>
 			</DisclosurePanel>

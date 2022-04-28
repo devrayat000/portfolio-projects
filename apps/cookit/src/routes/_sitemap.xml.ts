@@ -1,13 +1,13 @@
 import type { RequestHandler } from '@sveltejs/kit';
 
 import { makeSlug } from '$lib/utils/slug';
-import { mealPromise } from '$lib/services/meal';
+import { getAllMeals } from '$lib/services/meal';
 import { generateSitemap, type UrlParams } from '$lib/utils/xml';
 
 export const get: RequestHandler = async () => {
 	const baseUrl = 'https://cookingit.netlify.app';
 
-	const { allMeals, categories } = await mealPromise;
+	const { allMeals, categories } = await getAllMeals();
 
 	const categoryLinks = categories.map<UrlParams>((category) => ({
 		loc: `${baseUrl}/meal/category/${makeSlug(category.strCategory)}`,

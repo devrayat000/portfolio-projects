@@ -1,15 +1,11 @@
 <script lang="ts">
-	import { makeSlug } from '$lib/utils/slug';
 	import type { IMealBase } from '$lib/types/meal';
+	import { mealLink } from '$lib/utils/links';
 
 	export let meal: IMealBase;
+	const href = mealLink(meal.strMeal, meal.idMeal);
 </script>
 
-<a
-	href={`/meal/${makeSlug(meal.strMeal)}-${meal.idMeal}`}
-	title={meal.strMeal}
-	sveltekit:noscroll
-	{...$$restProps}
->
+<a {href} title={meal.strMeal} sveltekit:noscroll {...$$restProps}>
 	<slot />
 </a>

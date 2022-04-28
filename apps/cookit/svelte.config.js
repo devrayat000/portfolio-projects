@@ -27,9 +27,9 @@ const config = {
 		adapter: adapter(),
 		// amp: true,
 
-		prerender: {
-			entries: ['*', '/rss.xml', '/sitemap.xml']
-		}
+		// prerender: {
+		// 	entries: ['/sitemap.xml']
+		// }
 	}
 };
 

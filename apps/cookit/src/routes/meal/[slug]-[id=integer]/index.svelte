@@ -51,6 +51,7 @@
 	import Ingredient from '$lib/components/meal/ingredient.svelte';
 
 	import type { IMeal } from '$lib/types/meal';
+	import { mealLink } from '$lib/utils/links';
 
 	export let meal: IMeal;
 
@@ -67,7 +68,7 @@
 		openGraph={{
 			title: `${meal.strMeal} | COOKit`,
 			description: meal.strInstructions,
-			url: `https://cookingit.netlify.app/meal/${makeSlug(meal.strMeal)}_${meal.idMeal}`,
+			url: mealLink(meal.strMeal, meal.idMeal, 'https://cookit-bay.vercel.app'),
 			images: [
 				{
 					url: meal.strMealThumb ?? '/demos/intro.png',
