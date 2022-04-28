@@ -4,7 +4,7 @@
 	import { getCategories } from '$lib/services/category';
 	import { makeUrl } from '$lib/utils/axios';
 
-	export const prerender = true;
+	// export const prerender = true;
 
 	export const load: Load = async () => {
 		const queryClient = createQueryClient();
@@ -36,7 +36,10 @@
 	<MetaTags
 		title="Categories | COOKit"
 		description={`${categories.length} different meal categories to choose from!`}
-		additionalLinkTags={[{ rel: 'icon', href: '/images/garnish.png' }]}
+		additionalLinkTags={[
+			{ rel: 'icon', href: '/images/garnish.png' },
+			{ rel: 'alternate', href: '/meal/category/rss.xml', type: 'application/rss+xml' }
+		]}
 		openGraph={{
 			title: 'Categories | COOKit',
 			description: `${categories.length} different meal categories to choose from!`,

@@ -1,6 +1,5 @@
 import type { IMeal } from '$lib/types/meal';
 import { mealdb } from './axios';
-import { parseIngredients } from './parse_ingredients';
 
 export async function getRandomMeals(): Promise<{ meals: IMeal[] }>;
 export async function getRandomMeals(limit: number): Promise<{ meals: IMeal[] }>;

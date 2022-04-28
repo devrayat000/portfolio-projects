@@ -15,8 +15,6 @@ importers:
       '@playwright/test': ^1.21.0
       '@rgossiaux/svelte-headlessui': ^1.0.0-beta.12
       '@sveltejs/adapter-auto': next
-      '@sveltejs/adapter-netlify': ^1.0.0-next.55
-      '@sveltejs/adapter-static': ^1.0.0-next.29
       '@sveltejs/adapter-vercel': ^1.0.0-next.50
       '@sveltejs/kit': next
       '@sveltestack/svelte-query': ^1.6.0
@@ -51,10 +49,8 @@ importers:
       '@playwright/test': 1.21.1
       '@rgossiaux/svelte-headlessui': 1.0.0-beta.12_svelte@3.47.0
       '@sveltejs/adapter-auto': 1.0.0-next.40
-      '@sveltejs/adapter-netlify': 1.0.0-next.55
-      '@sveltejs/adapter-static': 1.0.0-next.29
       '@sveltejs/adapter-vercel': 1.0.0-next.50
-      '@sveltejs/kit': 1.0.0-next.323_svelte@3.47.0
+      '@sveltejs/kit': 1.0.0-next.324_svelte@3.47.0
       '@sveltestack/svelte-query': 1.6.0
       '@tailwindcss/line-clamp': 0.3.1_tailwindcss@3.0.24
       '@tailwindcss/typography': 0.5.2_tailwindcss@3.0.24
@@ -4993,25 +4989,11 @@ packages:
       worktop: 0.8.0-next.13
     dev: true
 
-  /@sveltejs/adapter-netlify/1.0.0-next.55:
-    resolution: {integrity: sha512-LbqupuX8SdvUdCLSLiazPdU+JwwVhWGmoAopwlFkdlGOsGEag6jB+CjEYPmy81SVMSKxtYA2RqNzBPpPbURDtw==}
-    dependencies:
-      '@iarna/toml': 2.2.5
-      esbuild: 0.14.34
-      tiny-glob: 0.2.9
-    dev: true
-
   /@sveltejs/adapter-netlify/1.0.0-next.56:
     resolution: {integrity: sha512-fM3aBHsr7syCGfIJcuB1mEoZwynqyOxVijvmyrd9OWHi6MP3bXSP+GhKDMtDpQRwejJJiwuZNTx2PUbV3uirvA==}
     dependencies:
       '@iarna/toml': 2.2.5
       esbuild: 0.14.34
-      tiny-glob: 0.2.9
-    dev: true
-
-  /@sveltejs/adapter-static/1.0.0-next.29:
-    resolution: {integrity: sha512-0hjGnfT3BRyoHnzJ2w0/xL+xICRpKneDTm45ZzggiRrc0r71WJfF6toGeg8N4QUQnj8EJ3Itm453gsS1kt7VUQ==}
-    dependencies:
       tiny-glob: 0.2.9
     dev: true
 
@@ -5021,8 +5003,8 @@ packages:
       esbuild: 0.14.34
     dev: true
 
-  /@sveltejs/kit/1.0.0-next.323_svelte@3.47.0:
-    resolution: {integrity: sha512-5JVBfXZqVcWhsvtxdwtFPEzLNM8FmttNNyN0h5P25KLryF3BeOg5OicRK3t7qNBmWTTNovDgChb/gWmne5Oicg==}
+  /@sveltejs/kit/1.0.0-next.324_svelte@3.47.0:
+    resolution: {integrity: sha512-/CGW9rQpHQLBb2EcMw08yelD/C9hTsypymctUWdhryMTI8n1VWb0gkUcSHsz8n8oAAbKLXqwyHqeLATfcIMg2w==}
     engines: {node: '>=14.13'}
     hasBin: true
     peerDependencies:

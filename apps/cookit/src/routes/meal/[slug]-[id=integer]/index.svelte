@@ -2,12 +2,11 @@
 	import type { Load } from '@sveltejs/kit';
 
 	import { parseIngredients } from '$lib/utils/parse_ingredients';
-	import { makeSlug } from '$lib/utils/slug';
 	import createQueryClient from '$lib/utils/query';
 	import { getMealById } from '$lib/services/meal';
 	import { makeUrl } from '$lib/utils/axios';
 
-	export const prerender = true;
+	// export const prerender = true;
 
 	export const load: Load<StaticPath> = async ({ params }) => {
 		const id = params.id;

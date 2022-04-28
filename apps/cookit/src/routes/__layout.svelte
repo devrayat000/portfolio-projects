@@ -34,9 +34,6 @@
 	});
 </script>
 
-<svelte:head>
-	<link rel="alternate" href="/rss.xml" type="application/rss+xml" title="RSS" />
-</svelte:head>
 <QueryClientProvider client={queryClient}>
 	<!-- <Hydrate> -->
 	<NavBar />

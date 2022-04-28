@@ -6,7 +6,7 @@
 	import { getMealsByCategory } from '$lib/services/category';
 	import { makeUrl } from '$lib/utils/axios';
 
-	export const prerender = true;
+	// export const prerender = true;
 
 	export const load: Load<StaticPath> = async ({ params }) => {
 		const categorySlug = params.slug;
@@ -51,6 +51,7 @@
 	import { capitalize } from '$lib/utils/capitalize';
 	import type { ICategory } from '$lib/types/category';
 	import type { IMeal } from '$lib/types/meal';
+	import { makeSlug } from '$lib/utils/slug';
 
 	export let category: ICategory;
 	export let meals: IMeal[];
@@ -60,7 +61,14 @@
 	<MetaTags
 		title={`Category - ${capitalize(category.strCategory)} | COOKit`}
 		description={category.strCategoryDescription}
-		additionalLinkTags={[{ rel: 'icon', href: '/images/garnish.png' }]}
+		additionalLinkTags={[
+			{ rel: 'icon', href: '/images/garnish.png' },
+			{
+				rel: 'alternate',
+				href: `/meal/category/${makeSlug(category.strCategory)}/rss.xml`,
+				type: 'application/rss+xml'
+			}
+		]}
 		openGraph={{
 			title: `Category - ${capitalize(category.strCategory)} | COOKit`,
 			description: category.strCategoryDescription,

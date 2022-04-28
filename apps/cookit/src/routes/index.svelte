@@ -5,7 +5,7 @@
 	import { makeUrl } from '$lib/utils/axios';
 	// import createQueryClient from '$lib/utils/query';
 
-	export const prerender = true;
+	// export const prerender = true;
 
 	export const load: Load = async ({}) => {
 		// const queryClient = createQueryClient();
@@ -42,7 +42,10 @@
 	<MetaTags
 		title="COOKit | MealDB"
 		description="A simple web app for food recipies"
-		additionalLinkTags={[{ rel: 'icon', href: '/images/garnish.png' }]}
+		additionalLinkTags={[
+			{ rel: 'icon', href: '/images/garnish.png' },
+			{ rel: 'alternate', href: '/rss.xml', type: 'application/rss+xml' }
+		]}
 		openGraph={{
 			title: 'COOKit | MealDB',
 			description: 'A simple web app for food recipies',
