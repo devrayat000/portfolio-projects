@@ -1,4 +1,4 @@
-import type { SvelteComponent } from 'svelte';
+import type { SvelteComponentTyped } from 'svelte';
 
 export interface HeroSectionProps {
 	image: string;
@@ -6,6 +6,6 @@ export interface HeroSectionProps {
 	description: string;
 }
 
-declare class HeroSection extends SvelteComponent<HeroSectionProps> {}
+declare class HeroSection extends SvelteComponentTyped<HeroSectionProps> {}
 
 export default HeroSection;

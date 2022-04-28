@@ -9,7 +9,8 @@ export async function getRandomMeals(limit = 10) {
 
 	const mealsPromise = arr.map(async (it) => {
 		const a = await mealdb.get('/random.php').then((r) => r.data);
-		return parseIngredients(a['meals'][0]);
+		// return parseIngredients(a['meals'][0]);
+		return a['meals'][0];
 	});
 	const meals = await Promise.all(mealsPromise);
 

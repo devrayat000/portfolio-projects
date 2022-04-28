@@ -7,7 +7,7 @@
 	import { mealdb } from '$lib/utils/axios';
 	import { parseIngredients } from '$lib/utils/parse_ingredients';
 
-	export const prerender = true;
+	export const prerender = false;
 
 	export const load: Load = async ({ url }) => {
 		const query = url.searchParams.get('q');

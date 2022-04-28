@@ -14,8 +14,8 @@
 
 		return {
 			props: {
-				// meals: parseIngredients(meals)
 				meals
+				// meals: meals.map(parseIngredients)
 			},
 			dependencies: [makeUrl('random.php')],
 			cache: {

@@ -1,5 +1,6 @@
 import adapter from '@sveltejs/adapter-auto';
-import netlifyAdapter from '@sveltejs/adapter-netlify'
+// import netlifyAdapter from '@sveltejs/adapter-netlify'
+import staticAdapter from '@sveltejs/adapter-static';
 import preprocess from 'svelte-preprocess';
 import image from 'svelte-image';
 
@@ -10,7 +11,8 @@ const config = {
 	preprocess: {
 		...image({
 			placeholder: 'trace',
-			webp: true
+			webp: true,
+			optimizeAll: true
 		}),
 		...preprocess({})
 	},
@@ -20,8 +22,16 @@ const config = {
 		// 	edge: false,
 		// 	split: false
 		// }),
+		// adapter: staticAdapter({
+		// 	assets: 'build',
+		// 	pages: 'build',
+		// 	fallback: 'fallback.html'
+		// }),
 		adapter: adapter(),
-	},
+		prerender: {
+			entries: ['*', '/rss.xml', '/sitemap.xml']
+		}
+	}
 };
 
 export default config;

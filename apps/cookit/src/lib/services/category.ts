@@ -7,8 +7,12 @@ export function getCategories() {
 	return mealdb.get<{ categories: ICategory[] }>('/categories.php');
 }
 
-export function getMealsByCategory({ queryKey }: QueryFunctionContext<[string, string]>) {
+export function getByCategory(category: string) {
 	return mealdb.get<{ meals: IMealBase[] }>('/filter.php', {
-		params: { c: queryKey[1] }
+		params: { c: category }
 	});
+}
+
+export function getMealsByCategory({ queryKey }: QueryFunctionContext<[string, string]>) {
+	return getByCategory(queryKey[1]);
 }

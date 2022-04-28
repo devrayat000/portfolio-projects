@@ -16,6 +16,7 @@ importers:
       '@rgossiaux/svelte-headlessui': ^1.0.0-beta.12
       '@sveltejs/adapter-auto': next
       '@sveltejs/adapter-netlify': ^1.0.0-next.55
+      '@sveltejs/adapter-static': ^1.0.0-next.29
       '@sveltejs/kit': next
       '@sveltestack/svelte-query': ^1.6.0
       '@tailwindcss/line-clamp': ^0.3.1
@@ -30,6 +31,7 @@ importers:
       eslint: ^7.32.0
       eslint-config-prettier: ^8.3.0
       eslint-plugin-svelte3: ^3.2.1
+      feed: ^4.2.2
       nprogress: ^0.2.0
       postcss: ^8.4.12
       prettier: ^2.5.1
@@ -49,6 +51,7 @@ importers:
       '@rgossiaux/svelte-headlessui': 1.0.0-beta.12_svelte@3.47.0
       '@sveltejs/adapter-auto': 1.0.0-next.40
       '@sveltejs/adapter-netlify': 1.0.0-next.55
+      '@sveltejs/adapter-static': 1.0.0-next.29
       '@sveltejs/kit': 1.0.0-next.323_svelte@3.47.0
       '@sveltestack/svelte-query': 1.6.0
       '@tailwindcss/line-clamp': 0.3.1_tailwindcss@3.0.24
@@ -63,6 +66,7 @@ importers:
       eslint: 7.32.0
       eslint-config-prettier: 8.5.0_eslint@7.32.0
       eslint-plugin-svelte3: 3.4.1_eslint@7.32.0+svelte@3.47.0
+      feed: 4.2.2
       nprogress: 0.2.0
       postcss: 8.4.12
       prettier: 2.6.2
@@ -5003,6 +5007,12 @@ packages:
       tiny-glob: 0.2.9
     dev: true
 
+  /@sveltejs/adapter-static/1.0.0-next.29:
+    resolution: {integrity: sha512-0hjGnfT3BRyoHnzJ2w0/xL+xICRpKneDTm45ZzggiRrc0r71WJfF6toGeg8N4QUQnj8EJ3Itm453gsS1kt7VUQ==}
+    dependencies:
+      tiny-glob: 0.2.9
+    dev: true
+
   /@sveltejs/adapter-vercel/1.0.0-next.50:
     resolution: {integrity: sha512-yta0AkuWEr7qrm8LB34F4ZdCtMxj+cHD4huwrRYCgjv+PSJHLPwe7aH53+Mhrv6La0TgeyQ/f2lTyhBMXZXn9Q==}
     dependencies:
@@ -5645,7 +5655,7 @@ packages:
       debug: 4.3.4
       globby: 11.1.0
       is-glob: 4.0.3
-      semver: 7.3.6
+      semver: 7.3.7
       tsutils: 3.21.0_typescript@4.6.3
       typescript: 4.6.3
     transitivePeerDependencies:
@@ -9177,6 +9187,13 @@ packages:
   /fecha/4.2.1:
     resolution: {integrity: sha512-MMMQ0ludy/nBs1/o0zVOiKTpG7qMbonKUzjJgQFEuvq6INZ1OraKPRAWkBq5vlKLOUMpmNYG1JoN3oDPUQ9m3Q==}
     dev: false
+
+  /feed/4.2.2:
+    resolution: {integrity: sha512-u5/sxGfiMfZNtJ3OvQpXcvotFpYkL0n9u9mM2vkui2nGo8b4wvDkJ8gAkYqbA8QpGyFCv3RK0Z+Iv+9veCS9bQ==}
+    engines: {node: '>=0.4.0'}
+    dependencies:
+      xml-js: 1.6.11
+    dev: true
 
   /figures/3.2.0:
     resolution: {integrity: sha512-yaduQFRKLXYOGgEn6AZau90j3ggSOyiqXU0F9JZfeXYhNa+Jk4X+s45A2zg5jns87GAFa34BBm2kXw4XpNcbdg==}
@@ -16919,7 +16936,6 @@ packages:
     hasBin: true
     dependencies:
       sax: 1.2.4
-    dev: false
 
   /xml-parse-from-string/1.0.1:
     resolution: {integrity: sha1-qQKekp09vN7RafPG4oI42VpdWig=}

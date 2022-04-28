@@ -34,16 +34,9 @@
 	});
 </script>
 
-<svelte:window
-	on:sveltekit:navigation-start={() => {
-		console.log('Navigation started on event!');
-		NProgress.start();
-	}}
-	on:sveltekit:navigation-end={() => {
-		console.log('Navigation ended on event!');
-		NProgress.done();
-	}}
-/>
+<svelte:head>
+	<link rel="alternate" href="/rss.xml" type="application/rss+xml" title="RSS" />
+</svelte:head>
 <QueryClientProvider client={queryClient}>
 	<!-- <Hydrate> -->
 	<NavBar />
