@@ -34,7 +34,6 @@
 	import Meals from '$lib/components/list/meals.svelte';
 	import Search from '$lib/components/search/search.svelte';
 	import type { IMeal } from '$lib/types/meal';
-	import { parseIngredients } from '$lib/utils/parse_ingredients';
 
 	export let meals: IMeal[];
 </script>
@@ -58,26 +57,30 @@
 	/>
 
 	<section class="flex justify-between flex-col items-center">
-		<HeroSection
-			title="Hello there"
-			description="Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda
+		{#key 'hero-home'}
+			<HeroSection
+				title="Hello there"
+				description="Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda
         excepturi exercitationem quasi. In deleniti eaque aut repudiandae et
         a id nisi."
-			image="https://www.themealdb.com/images/icons/favicon/apple-touch-icon.png"
-		>
-			<PrimaryAction slot="action" />
-		</HeroSection>
+				image="https://www.themealdb.com/images/icons/favicon/apple-touch-icon.png"
+			>
+				<PrimaryAction slot="action" />
+			</HeroSection>
+		{/key}
 
 		<section class="container mx-auto my-4 p-4 flex justify-center flex-col items-stretch">
-			<section class="flex flex-col items-stretch my-8">
-				<div role="heading" id="random_meals" aria-level={2} class="m-4">
-					<h1 class="text-center">
-						Search for <span class="text-fuchsia-600">Delicious</span>{' '}
-						Meals
-					</h1>
-				</div>
-				<Search />
-			</section>
+			{#key 'search-home'}
+				<section class="flex flex-col items-stretch my-8">
+					<div role="heading" id="random_meals" aria-level={2} class="m-4">
+						<h1 class="text-center">
+							Search for <span class="text-fuchsia-600">Delicious</span>{' '}
+							Meals
+						</h1>
+					</div>
+					<Search />
+				</section>
+			{/key}
 
 			<div role="heading" aria-level={3} class="flex justify-center m-4">
 				<h1>

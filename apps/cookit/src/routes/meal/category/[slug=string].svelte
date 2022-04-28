@@ -19,10 +19,10 @@
 		);
 		const category = await categoryBySlug(categorySlug);
 
-		if (status >= 400 && status < 500) {
+		if ((status >= 400 && status < 500) || !data.meals) {
 			return {
 				status: 404,
-				error: new Error(`Meals with category ${category} not found!`)
+				error: new Error(`Meals with category ${categorySlug} not found!`)
 			};
 		}
 
@@ -74,11 +74,13 @@
 		}}
 	/>
 	<section class="container">
-		<HeroSection
-			title={capitalize(category.strCategory)}
-			description={category.strCategoryDescription}
-			image={category.strCategoryThumb}
-		/>
+		{#key category.strCategory}
+			<HeroSection
+				title={capitalize(category.strCategory)}
+				description={category.strCategoryDescription}
+				image={category.strCategoryThumb}
+			/>
+		{/key}
 		<Meals {meals} />
 	</section>
 </main>

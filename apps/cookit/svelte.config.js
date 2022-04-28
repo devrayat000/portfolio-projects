@@ -1,6 +1,7 @@
 import adapter from '@sveltejs/adapter-auto';
 // import netlifyAdapter from '@sveltejs/adapter-netlify'
-import staticAdapter from '@sveltejs/adapter-static';
+// import vercelAdapter from '@sveltejs/adapter-vercel'
+// import staticAdapter from '@sveltejs/adapter-static';
 import preprocess from 'svelte-preprocess';
 import image from 'svelte-image';
 
@@ -9,11 +10,7 @@ const config = {
 	// Consult https://github.com/sveltejs/svelte-preprocess
 	// for more information about preprocessors
 	preprocess: {
-		...image({
-			placeholder: 'trace',
-			webp: true,
-			optimizeAll: true
-		}),
+		...image(),
 		...preprocess({})
 	},
 
@@ -28,6 +25,8 @@ const config = {
 		// 	fallback: 'fallback.html'
 		// }),
 		adapter: adapter(),
+		// amp: true,
+
 		prerender: {
 			entries: ['*', '/rss.xml', '/sitemap.xml']
 		}

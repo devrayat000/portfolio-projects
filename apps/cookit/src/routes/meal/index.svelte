@@ -72,9 +72,12 @@
 	import { page } from '$app/stores';
 
 	import Meals from '$lib/components/list/meals.svelte';
+	import Search from '$lib/components/search/search.svelte';
 	import type { IMeal } from '$lib/types/meal';
 
 	export let meals: IMeal[];
+
+	const query = $page.url.searchParams.get('q')!;
 </script>
 
 <main class="flex flex-col justify-between items-center">
@@ -95,8 +98,11 @@
 		}}
 	/> -->
 	<section class="container">
-		<div class="grid place-items-center">
-			<h1 class="font-medium">
+		<div class="grid place-items-stretch max-w-screen-md mx-auto">
+			<div class="my-5">
+				<Search value={query} />
+			</div>
+			<h1 class="font-medium text-center">
 				Showing search results for: {$page.url.searchParams.get('q')}
 			</h1>
 		</div>

@@ -6,8 +6,10 @@
 	import ClearIcon from './clear_icon.svelte';
 	import SearchIcon from './search_icon.svelte';
 
+	export let value: string = '';
+
 	let inputEl: HTMLInputElement;
-	let searchInput: string = '';
+	let searchInput: string = value;
 
 	function clearInput() {
 		searchInput = '';

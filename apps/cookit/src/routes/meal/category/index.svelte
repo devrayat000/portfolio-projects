@@ -52,11 +52,13 @@
 	<section class="container mb-12">
 		<h1 class="text-center my-6">Categories</h1>
 		<!-- TODO: Write description for category page -->
-		<Typewriter>
-			<p>
-				{categories.length + ' different meal categories to choose from!'}
-			</p>
-		</Typewriter>
+		{#key categories.length}
+			<Typewriter>
+				<p>
+					{categories.length + ' different meal categories to choose from!'}
+				</p>
+			</Typewriter>
+		{/key}
 
 		<article class="flex justify-center items-stretch flex-wrap gap-3 container">
 			{#each categories as category (category.idCategory)}
